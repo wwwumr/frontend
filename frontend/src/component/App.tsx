@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Layout } from 'antd';
 import 'antd/dist/antd.css';
 import Header from '../layout/Header';
@@ -8,6 +8,13 @@ import HomePage from './HomePage';
 import { UserProps, AppState } from '../redux/reducer/reducer';
 import { Role } from '../redux/action/ActionTypes';
 import { connect } from 'react-redux';
+import Login from './common/Login';
+import Register from './common/Register';
+import NotFound from './NotFound';
+import ActivityReview from './certificationBody/activity/ActivityReview';
+import HistoryActivity from './certificationBody/activity/HistoryActivity';
+import ActivityDeatil from './certificationBody/activity/ActivityDetail';
+import MarksReview from './certificationBody/marks/MarksReview';
 
 interface StateProps {
 	user: UserProps;
@@ -24,7 +31,7 @@ const App: React.FunctionComponent<Props> = (props: Props) => {
 
 	return (
 		<React.Fragment>
-			<BrowserRouter>
+			<Router>
 				<Layout>
 					<Layout.Header className='header'>
 						<Header />
@@ -34,7 +41,7 @@ const App: React.FunctionComponent<Props> = (props: Props) => {
 							<Layout.Sider width={200} className='site-layout-background'>
 								<Sider />
 							</Layout.Sider>
-							<Layout style={{ padding: '24px 24px 24px' }}>
+							<Layout>
 								<Layout.Content
 									className='site-layout-background'
 									style={{
@@ -43,7 +50,30 @@ const App: React.FunctionComponent<Props> = (props: Props) => {
 										minHeight: 480,
 									}}
 								>
-									<Route path='/' component={HomePage} />
+									<Switch>
+										<Route exact path='/' component={HomePage} />
+										<Route
+											exact
+											path='/activity/review'
+											component={ActivityReview}
+										/>
+										<Route
+											exact
+											path='/activity/history'
+											component={HistoryActivity}
+										/>
+										<Route
+											exact
+											path='/activity/marks/:id'
+											component={MarksReview}
+										/>
+										<Route
+											exact
+											path='/activity/detail/:id'
+											component={ActivityDeatil}
+										/>
+										<Route path='*' component={NotFound} />
+									</Switch>
 								</Layout.Content>
 							</Layout>
 						</Layout>
@@ -53,7 +83,7 @@ const App: React.FunctionComponent<Props> = (props: Props) => {
 							<Layout.Sider width={200} className='site-layout-background'>
 								<Sider />
 							</Layout.Sider>
-							<Layout style={{ padding: '24px 24px 24px' }}>
+							<Layout>
 								<Layout.Content
 									className='site-layout-background'
 									style={{
@@ -62,7 +92,10 @@ const App: React.FunctionComponent<Props> = (props: Props) => {
 										minHeight: 480,
 									}}
 								>
-									<Route path='/' component={HomePage} />
+									<Switch>
+										<Route exact path='/' component={HomePage} />
+										<Route path='*' component={NotFound} />
+									</Switch>
 								</Layout.Content>
 							</Layout>
 						</Layout>
@@ -73,15 +106,20 @@ const App: React.FunctionComponent<Props> = (props: Props) => {
 								className='site-layout-background'
 								style={{
 									margin: 0,
-									minHeight: 480,
+									minHeight: 561,
 								}}
 							>
-								<Route path='/' component={HomePage} />
+								<Switch>
+									<Route exact path='/' component={HomePage} />
+									<Route exact path='/login' component={Login} />
+									<Route exact path='/register' component={Register} />
+									<Route path='*' component={NotFound} />
+								</Switch>
 							</Layout.Content>
 						</Layout>
 					)}
 				</Layout>
-			</BrowserRouter>
+			</Router>
 		</React.Fragment>
 	);
 };

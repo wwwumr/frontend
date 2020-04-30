@@ -1,6 +1,6 @@
 import { ActionTypes } from './ActionTypes';
 import { AnyAction } from 'redux';
-import { UserProps } from '../reducer/reducer';
+import { UserProps, intialStoreState } from '../reducer/reducer';
 
 export const setUser = (user: UserProps): AnyAction => {
 	return {
@@ -10,3 +10,12 @@ export const setUser = (user: UserProps): AnyAction => {
 		},
 	};
 };
+
+export const logOut = () :AnyAction => {
+	return {
+		type: ActionTypes.LOGOUT,
+		payload: {
+			state: intialStoreState
+		}
+	}
+}

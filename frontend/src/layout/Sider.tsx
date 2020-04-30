@@ -1,66 +1,85 @@
 import React from 'react';
 import { Menu } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
-import {
-	UserOutlined,
-	LaptopOutlined,
-	NotificationOutlined,
-} from '@ant-design/icons';
+import { NotificationOutlined } from '@ant-design/icons';
+import { AppState, UserProps } from '../redux/reducer/reducer';
+import { connect } from 'react-redux';
+import { Role } from '../redux/action/ActionTypes';
+import { Link } from 'react-router-dom';
 
-export default class Sider extends React.Component<{}, {}> {
-	render() {
-		return (
-			<React.Fragment>
+interface StateProps {
+	user: UserProps;
+}
+
+const mapStateToProps = (state: AppState) => ({
+	user: state.user,
+});
+
+type Props = StateProps;
+
+const Sider: React.FunctionComponent<Props> = (props: Props) => {
+	const { user } = props;
+
+	return (
+		<React.Fragment>
+			{user.role === Role.CERTIFICATION_BODY && (
 				<Menu
 					mode='inline'
 					defaultSelectedKeys={['1']}
-					defaultOpenKeys={['sub1']}
+					defaultOpenKeys={['sub0', 'sub1']}
 					style={{ height: '100%', borderRight: 0 }}
 				>
+					<SubMenu
+						key='sub0'
+						title={
+							<span>
+								<NotificationOutlined />
+								活动审核
+							</span>
+						}
+					>
+						<Menu.Item key='0'>
+							<Link to='/activity/review'>待审核活动</Link>
+						</Menu.Item>
+						<Menu.Item key='1'>
+							<Link to='/activity/history'>已审核活动</Link>
+						</Menu.Item>
+					</SubMenu>
+				</Menu>
+			)}
+			{user.role === Role.CLUB && (
+				<Menu
+					mode='inline'
+					defaultSelectedKeys={['1']}
+					defaultOpenKeys={['sub0', 'sub1']}
+					style={{ height: '100%', borderRight: 0 }}
+				>
+					<SubMenu
+						key='sub0'
+						title={
+							<span>
+								<NotificationOutlined />
+								活动审核
+							</span>
+						}
+					>
+						<Menu.Item key='0'>待审核活动</Menu.Item>
+					</SubMenu>
 					<SubMenu
 						key='sub1'
 						title={
 							<span>
-								<UserOutlined />
-								subnav 1
-							</span>
-						}
-					>
-						<Menu.Item key='1'>option1</Menu.Item>
-						<Menu.Item key='2'>option2</Menu.Item>
-						<Menu.Item key='3'>option3</Menu.Item>
-						<Menu.Item key='4'>option4</Menu.Item>
-					</SubMenu>
-					<SubMenu
-						key='sub2'
-						title={
-							<span>
-								<LaptopOutlined />
-								subnav 2
-							</span>
-						}
-					>
-						<Menu.Item key='5'>option5</Menu.Item>
-						<Menu.Item key='6'>option6</Menu.Item>
-						<Menu.Item key='7'>option7</Menu.Item>
-						<Menu.Item key='8'>option8</Menu.Item>
-					</SubMenu>
-					<SubMenu
-						key='sub3'
-						title={
-							<span>
 								<NotificationOutlined />
-								subnav 3
+								活动计分
 							</span>
 						}
 					>
-						<Menu.Item key='9'>option9</Menu.Item>
-						<Menu.Item key='10'>option10</Menu.Item>
-						<Menu.Item key='11'>option11</Menu.Item>
-						<Menu.Item key='12'>option12</Menu.Item>
+						<Menu.Item key='1'>待计分活动</Menu.Item>
 					</SubMenu>
 				</Menu>
-			</React.Fragment>
-		);
-	}
-}
+			)}
+		</React.Fragment>
+	);
+};
+
+export default connect(mapStateToProps)(Sider);

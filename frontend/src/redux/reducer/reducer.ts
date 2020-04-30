@@ -10,7 +10,7 @@ export interface AppState {
 	user: UserProps;
 }
 
-const initialState: AppState = {
+export const intialStoreState: AppState = {
 	user: {
 		userId: -1,
 		role: Role.UNDEFINED,
@@ -18,7 +18,7 @@ const initialState: AppState = {
 };
 
 export const AppReducer = (
-	state = initialState,
+	state = intialStoreState,
 	action: AnyAction
 ): AppState => {
 	switch (action.type) {
@@ -27,6 +27,9 @@ export const AppReducer = (
 				...state,
 				user: action.payload.user,
 			};
+		}
+		case ActionTypes.LOGOUT: {
+			return { ...intialStoreState };
 		}
 		default:
 			return state;
