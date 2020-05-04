@@ -11,10 +11,16 @@ import { connect } from 'react-redux';
 import Login from './common/Login';
 import Register from './common/Register';
 import NotFound from './NotFound';
-import ActivityReview from './certificationBody/activity/ActivityReview';
-import HistoryActivity from './certificationBody/activity/HistoryActivity';
-import ActivityDeatil from './certificationBody/activity/ActivityDetail';
-import MarksReview from './certificationBody/marks/MarksReview';
+import ActivityReview_CERT from './certificationBody/activity/ActivityReview_CERT';
+import HistoryActivity_CERT from './certificationBody/activity/HistoryActivity_CERT';
+import ActivityDeatil_CERT from './certificationBody/activity/ActivityDetail_CERT';
+import MarksReview_CERT from './certificationBody/marks/MarksReview_CERT';
+import HistoryActivity_CLUB from './club/activity/HistoryActivity_CLUB';
+import ActivityReview_CLUB from './club/activity/ActivityReview_CLUB';
+import MarksReview_CLUB from './club/marks/MarksReview_CLUB';
+import ActivityDeatil_CLUB from './club/activity/ActivityDetail_CLUB';
+import MarksHistory from './club/marks/MarksHistory';
+import CreateActivity from './club/activity/CreateActivity';
 
 interface StateProps {
 	user: UserProps;
@@ -55,22 +61,22 @@ const App: React.FunctionComponent<Props> = (props: Props) => {
 										<Route
 											exact
 											path='/activity/review'
-											component={ActivityReview}
+											component={ActivityReview_CERT}
 										/>
 										<Route
 											exact
 											path='/activity/history'
-											component={HistoryActivity}
+											component={HistoryActivity_CERT}
 										/>
 										<Route
 											exact
 											path='/activity/marks/:id'
-											component={MarksReview}
+											component={MarksReview_CERT}
 										/>
 										<Route
 											exact
 											path='/activity/detail/:id'
-											component={ActivityDeatil}
+											component={ActivityDeatil_CERT}
 										/>
 										<Route path='*' component={NotFound} />
 									</Switch>
@@ -94,6 +100,36 @@ const App: React.FunctionComponent<Props> = (props: Props) => {
 								>
 									<Switch>
 										<Route exact path='/' component={HomePage} />
+										<Route
+											exact
+											path='/activity/create'
+											component={CreateActivity}
+										/>
+										<Route
+											exact
+											path='/activity/review'
+											component={ActivityReview_CLUB}
+										/>
+										<Route
+											exact
+											path='/activity/history'
+											component={HistoryActivity_CLUB}
+										/>
+										<Route
+											exact
+											path='/activity/marks/:id'
+											component={MarksReview_CLUB}
+										/>
+										<Route
+											exact
+											path='/activity/marks/history/:id'
+											component={MarksHistory}
+										/>
+										<Route
+											exact
+											path='/activity/detail/:id'
+											component={ActivityDeatil_CLUB}
+										/>
 										<Route path='*' component={NotFound} />
 									</Switch>
 								</Layout.Content>

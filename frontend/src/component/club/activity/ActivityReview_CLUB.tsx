@@ -3,6 +3,14 @@ import { Table, Button } from 'antd';
 import { Remaining } from './Mock';
 import { Link } from 'react-router-dom';
 
+export interface ActivityProps_CLUB {
+	id: number;
+	location: string;
+	time: string;
+	type: string;
+	desc: string;
+}
+
 const columns = [
 	{
 		title: '活动编号',
@@ -25,8 +33,8 @@ const columns = [
 		key: '3',
 	},
 	{
-		title: '审核状态',
-		dataIndex: 'status',
+		title: '活动描述',
+		dataIndex: 'desc',
 		key: '4',
 	},
 	{
@@ -34,14 +42,16 @@ const columns = [
 		dataIndex: 'id',
 		key: '5',
 		render: (id: number) => (
-			<Button>
-				<Link to={`/activity/detail/${id}`}>查看详情</Link>
-			</Button>
+			<React.Fragment>
+				<Button>
+					<Link to={`/activity/detail/${id}`}>查看详情</Link>
+				</Button>
+			</React.Fragment>
 		),
 	},
 ];
 
-const HistoryActivity = () => {
+const ActivityReview_CLUB = () => {
 	return (
 		<React.Fragment>
 			<Table dataSource={Remaining} columns={columns} />
@@ -49,4 +59,4 @@ const HistoryActivity = () => {
 	);
 };
 
-export default HistoryActivity;
+export default ActivityReview_CLUB;

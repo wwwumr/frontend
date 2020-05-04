@@ -11,7 +11,7 @@ const NormalLoginForm = () => {
 	const history = useHistory();
 	const onFinish = (values: any) => {
 		console.log('Received values of form: ', values);
-		store.dispatch(setUser({ userId: 0, role: Role.CERTIFICATION_BODY }));
+		store.dispatch(setUser({ userId: 0, role: Role.CLUB}));
 		history.push('/');
 	};
 

@@ -26,7 +26,7 @@ const Sider: React.FunctionComponent<Props> = (props: Props) => {
 				<Menu
 					mode='inline'
 					defaultSelectedKeys={['1']}
-					defaultOpenKeys={['sub0', 'sub1']}
+					defaultOpenKeys={['sub0']}
 					style={{ height: '100%', borderRight: 0 }}
 				>
 					<SubMenu
@@ -50,8 +50,7 @@ const Sider: React.FunctionComponent<Props> = (props: Props) => {
 			{user.role === Role.CLUB && (
 				<Menu
 					mode='inline'
-					defaultSelectedKeys={['1']}
-					defaultOpenKeys={['sub0', 'sub1']}
+					defaultOpenKeys={['sub0']}
 					style={{ height: '100%', borderRight: 0 }}
 				>
 					<SubMenu
@@ -59,22 +58,19 @@ const Sider: React.FunctionComponent<Props> = (props: Props) => {
 						title={
 							<span>
 								<NotificationOutlined />
-								活动审核
+								活动管理
 							</span>
 						}
 					>
-						<Menu.Item key='0'>待审核活动</Menu.Item>
-					</SubMenu>
-					<SubMenu
-						key='sub1'
-						title={
-							<span>
-								<NotificationOutlined />
-								活动计分
-							</span>
-						}
-					>
-						<Menu.Item key='1'>待计分活动</Menu.Item>
+						<Menu.Item key='0'>
+							<Link to='/activity/create'>新建活动</Link>
+						</Menu.Item>
+						<Menu.Item key='1'>
+							<Link to='/activity/review'>进行中活动</Link>
+						</Menu.Item>
+						<Menu.Item key='2'>
+							<Link to='/activity/history'>已结束活动</Link>
+						</Menu.Item>
 					</SubMenu>
 				</Menu>
 			)}

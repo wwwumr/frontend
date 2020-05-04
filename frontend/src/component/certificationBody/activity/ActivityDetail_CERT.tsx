@@ -29,11 +29,7 @@ const StatusAction = (props: StatusActionProps) => {
 					<Link to={`/activity/marks/${id}`}>查看</Link>
 				</Button>
 			)}
-			{status === '未计分' && (
-				<Button>
-					<Link to={`/activity/marks/${id}`}>查看</Link>
-				</Button>
-			)}
+			{status === '未计分' && <React.Fragment />}
 		</React.Fragment>
 	);
 };

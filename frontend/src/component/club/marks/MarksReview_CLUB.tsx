@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Button } from 'antd';
 import { MarksReviewProps, MockMarks } from './Mock';
-import Demo from './Demo';
 
 type Item = MarksReviewProps;
 
@@ -51,12 +50,23 @@ const EditableCell: React.FC<EditableCellProps> = ({
 	);
 };
 
-const MarksReview = () => {
+const MarksReview_CLUB = () => {
 	const [form] = Form.useForm();
 	const [data, setData] = useState(originData);
+	const [count, setCount] = useState(originData.length);
 	const [editingKey, setEditingKey] = useState(-1);
 
 	const isEditing = (record: Item) => record.id === editingKey;
+
+	const handleDelete = (id: number) => {
+		const dataSource = [...data];
+		setData(dataSource.filter((item) => item.id !== id));
+	};
+
+	const handleAdd = (newData: Item) => {
+		setData([...data, newData]);
+		setCount(count + 1);
+	};
 
 	const edit = (record: Item) => {
 		form.setFieldsValue({ name: '', age: '', address: '', ...record });
@@ -124,7 +134,15 @@ const MarksReview = () => {
 						</Popconfirm>
 					</span>
 				) : (
-					<Button onClick={() => edit(record)}>修改</Button>
+					<React.Fragment>
+						<Button onClick={() => edit(record)}>修改</Button>
+						<Popconfirm
+							title='确认删除?'
+							onConfirm={() => handleDelete(record.id)}
+						>
+							<Button>删除</Button>
+						</Popconfirm>
+					</React.Fragment>
 				);
 			},
 		},
@@ -148,7 +166,15 @@ const MarksReview = () => {
 
 	return (
 		<React.Fragment>
-			<Demo />
+			<Button
+				onClick={() => {
+					handleAdd({ ...originData[0], id: count });
+				}}
+				type='primary'
+				style={{ marginBottom: 16 }}
+			>
+				{'添加学生'}
+			</Button>
 			<Form form={form} component={false}>
 				<Table
 					components={{
@@ -156,8 +182,8 @@ const MarksReview = () => {
 							cell: EditableCell,
 						},
 					}}
-          bordered
-          rowKey='id'
+					bordered
+					rowKey='id'
 					dataSource={data}
 					columns={mergedColumns}
 					rowClassName='editable-row'
@@ -170,4 +196,4 @@ const MarksReview = () => {
 	);
 };
 
-export default MarksReview;
+export default MarksReview_CLUB;
